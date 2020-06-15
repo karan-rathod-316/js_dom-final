@@ -16,25 +16,36 @@ let houseNames = got.houses.map(house => house.name);
 // Step 2 - Create UI for the data extracted in step 1
 
 function createButtons() {
+    ul.innerHTML = "";
     houseNames.forEach(housename => {
 
         let li = document.createElement('li');
         let buttons = document.createElement('button');
         buttons.innerText = housename;
-        buttons.addEventListener('click', displayCards)
+        if (housename === activeHouse) {
+            buttons.classList.add("button-active");
+        }
+
+        buttons.addEventListener('click', function(event) {
+            activeHouse = event.target.innerText;
+            displayCards(activeHouse)
+            createButtons()
+        })
+
         li.append(buttons);
         ul.append(li);
     })
+
 }
 
 createButtons();
 
 
 //Step 3 -  Extract data for the cards
-function displayCards(event) {
+function displayCards(activeHouse) {
     ulCard.innerHTML = '';
 
-    let person = got.houses.find(person => person.name == event.target.innerText).people
+    let person = got.houses.find(person => person.name == activeHouse).people
     person.forEach(person => {
         // ulCard.innerHTML = '';
 
@@ -61,4 +72,4 @@ function displayCards(event) {
 
 }
 
-displayCards();
+displayCards(activeHouse);

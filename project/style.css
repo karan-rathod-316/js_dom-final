@@ -221,6 +221,11 @@ button:active {
     color: white;
 }
 
+.button-active {
+    background-color: rgb(50, 115, 220);
+    color: white;
+}
+
 
 /* Name Cards */
 
